@@ -39,15 +39,18 @@ Este projeto visa simplificar as operações diárias de uma academia, permitind
 
 2. **Navegue até o diretório do projeto:**:
     
+    ```bash
     cd gerenciador-academia-electron
     cd front-end
 
 3. **Navegue até o diretório do projeto:**:
 
+    ```bash
     npm install
 
 4. **Retorne para a pasta raiz e acesse a pasta back-end**
 
+    ```bash
     cd ..
     cd back-end
 
@@ -55,16 +58,19 @@ Este projeto visa simplificar as operações diárias de uma academia, permitind
     
     Certifique-se de que o Python esteja instalado em sua máquina. Em seguida, instale as dependências necessárias:
 
+    ```bash
     pip install -r requirements.txt
 
 ## Como Usar
 
 1. **Na pasta raiz do projeto, inicie o backend**:
     
+    ```bash
     python backend/app.py
 
 2. **Na pasta raiz do projeto, inicie o frontend**:
 
+    ```bash
     cd front-end
     npm start
 
