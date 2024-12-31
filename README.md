@@ -51,7 +51,7 @@ Este projeto visa simplificar as operações diárias de uma academia, permitind
     cd ..
     cd back-end
 
-5. **Instale as dependências do Python**
+5. **Instale as dependências do Python**:
     
     Certifique-se de que o Python esteja instalado em sua máquina. Em seguida, instale as dependências necessárias:
 
@@ -59,11 +59,11 @@ Este projeto visa simplificar as operações diárias de uma academia, permitind
 
 ## Como Usar
 
-1. **Na pasta raiz do projeto, inicie o backend**
+1. **Na pasta raiz do projeto, inicie o backend**:
     
     python backend/app.py
 
-2. **Na pasta raiz do projeto, inicie o frontend**
+2. **Na pasta raiz do projeto, inicie o frontend**:
 
     cd front-end
     npm start
