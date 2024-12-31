@@ -2,10 +2,10 @@ import React from 'react';
 export default function Main(){
     return(
         <>
-            <h1>Main</h1>
-            <h2>Teste</h2>
-            <h2>Teste</h2>
-        </>
-        
+            <button>New Client</button>
+            <button>List Clients</button>
+            <button>New Sale</button>
+            <button>List Sales</button>
+        </> 
     );
 }
