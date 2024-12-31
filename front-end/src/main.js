@@ -14,12 +14,29 @@ const createWindow = () => {
     height: 1280,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      nodeIntegration: true,  // Habilitar Node.js no front
+      contextIsolation: false, // Desabilitar isolamento de contexto
+      enableRemoteModule: true, // Para permitir módulos remotos
+      webSecurity: false,      // Desabilitar Web Security
     },
     autoHideMenuBar: true,
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+  mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+        responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [
+                "default-src 'self' http://localhost:3000 http://localhost:5000; connect-src http://localhost:5000 ws://localhost:3000; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';",
+            ],
+        },
+    });
+});
+
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
   // Open the DevTools.
    mainWindow.webContents.openDevTools();

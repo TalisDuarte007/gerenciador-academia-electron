@@ -1,13 +1,8 @@
 import React, { useState } from "react";
+import ClientForm from "../ClientForm/ClientForm.jsx";
+import { saveClient } from "../../services/dbService.js";
 
 const NewClientScreen = ({ goBack }) => {
-  const handleSave = (e) => {
-    e.preventDefault();
-    console.log("Cliente salvo!");
-    console.log(formData);
-    //goBack(); // Voltar à tela principal após salvar
-  };
-
   const getCurrentDate = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
@@ -33,11 +28,12 @@ const NewClientScreen = ({ goBack }) => {
     address: "",
     email: "",
     plan_type: "",
-    plan_frequency: "", // 3x por semana ou Livre
+    plan_frequency: "",
     plan_start_date: getCurrentDate(),
     plan_end_date: "",
     plan_status: "Ativo",
     max_weekly_entries: 0,
+	weekly_entries:"0",
     photo: "",
     created_at: getCurrentDate(),
   });
@@ -47,17 +43,11 @@ const NewClientScreen = ({ goBack }) => {
     let monthsToAdd = 0;
     let daysToAdd = 0;
 
-    if (newPlanType === "mensal") {
-      monthsToAdd = 1;
-    } else if (newPlanType === "semestral") {
-      monthsToAdd = 6;
-    } else if (newPlanType === "diaria") {
-      daysToAdd = 1;
-    } else if (newPlanType === "semanal") {
-      daysToAdd = 7;
-    } else if (newPlanType === "quinzenal") {
-      daysToAdd = 15;
-    }
+    if (newPlanType === "mensal") monthsToAdd = 1;
+    if (newPlanType === "semestral") monthsToAdd = 6;
+    if (newPlanType === "diaria") daysToAdd = 1;
+    if (newPlanType === "semanal") daysToAdd = 7;
+    if (newPlanType === "quinzenal") daysToAdd = 15;
 
     let newEndDate = formData.plan_start_date;
 
@@ -89,7 +79,7 @@ const NewClientScreen = ({ goBack }) => {
   };
 
   const areFieldsValid = () => {
-    const { name, age, contact, address, email, plan_type, plan_start_date } = formData;
+    const { name, age, contact, address, email, plan_type, plan_frequency, plan_start_date } = formData;
 
     return (
       name.trim() !== "" &&
@@ -98,99 +88,38 @@ const NewClientScreen = ({ goBack }) => {
       address.trim() !== "" &&
       email.trim() !== "" &&
       plan_type.trim() !== "" &&
+      plan_frequency.trim() !== "" &&
       plan_start_date.trim() !== ""
     );
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+        const result = await saveClient(formData);
+        console.log("Cliente salvo com sucesso:", result);
+        //goBack();
+    } catch (error) {
+        console.error("Erro ao salvar cliente:", error);
+        alert("Erro ao salvar cliente. Por favor, tente novamente.");
+    }
+
+    console.log("Cliente salvo!");
+    console.log(formData);
+    // goBack();
   };
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h2>Adicionar Novo Cliente</h2>
-      <form
-        onSubmit={handleSave}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
-        <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          type="text"
-          placeholder="Nome"
-          required
-        />
-        <input
-          name="age"
-          value={formData.age}
-          onChange={handleChange}
-          type="text"
-          placeholder="Idade"
-          required
-        />
-        <input
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          type="email"
-          placeholder="E-mail"
-          required
-        />
-        <input
-          name="contact"
-          value={formData.contact}
-          onChange={handleChange}
-          type="tel"
-          placeholder="Telefone"
-          required
-        />
-        <input
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-          type="text"
-          placeholder="Endereço"
-          required
-        />
-        <select name="plan_type" value={formData.plan_type} onChange={handlePlanTypeChange}>
-          <option value="">Selecione o Tipo de Plano</option>
-          <option value="mensal">Mensal</option>
-          <option value="semestral">Semestral</option>
-          <option value="diaria">Diária</option>
-          <option value="semanal">Semanal</option>
-          <option value="quinzenal">Quinzenal</option>
-        </select>
-
-        {["mensal", "semestral"].includes(formData.plan_type) && (
-          <div>
-            <p>Frequência do Plano:</p>
-            <label>
-              <input
-                type="radio"
-                name="plan_frequency"
-                value="3x por semana"
-                checked={formData.plan_frequency === "3x por semana"}
-                onChange={handleChange}
-              />
-              3x por semana
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="plan_frequency"
-                value="Livre"
-                checked={formData.plan_frequency === "Livre"}
-                onChange={handleChange}
-              />
-              Livre
-            </label>
-          </div>
-        )}
-
-        <button type="submit" disabled={!areFieldsValid()}>
-          Salvar
-        </button>
-        <button type="button" onClick={goBack}>
-          Voltar
-        </button>
-      </form>
+      <ClientForm
+        formData={formData}
+        handleChange={handleChange}
+        handlePlanTypeChange={handlePlanTypeChange}
+        handleSave={handleSave}
+        areFieldsValid={areFieldsValid}
+        goBack={goBack}
+      />
     </div>
   );
 };
