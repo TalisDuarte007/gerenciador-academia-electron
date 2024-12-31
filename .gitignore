@@ -1,0 +1,26 @@
+# Ignorar node_modules do front-end
+front-end/node_modules/
+
+# Ignorar dist ou builds do Electron
+front-end/dist/
+front-end/build/
+*.exe
+*.app
+
+# Ignorar arquivos Python desnecessários
+back-end/__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar o banco de dados SQLite (opcional, se for local ou temporário)
+back-end/*.db
+
+# Ignorar arquivos de configuração locais
+.env
+.vscode/
+
+# Ignorar arquivos temporários e de sistema
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
