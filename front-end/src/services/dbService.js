@@ -22,6 +22,26 @@ export const saveClient = async (clientData) => {
   }
 };
 
+export const fetchClients = async () => {
+  try {
+    const response = await fetch(`${API_URL}/students`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Erro na requisição: ${response.status} - ${response.statusText}`
+      );
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Erro ao buscar clientes:", error);
+    throw error;
+  }
+};
+
 // Outras funções podem ser adicionadas aqui
 // Por exemplo:
 // export const fetchClients = async () => { ... };

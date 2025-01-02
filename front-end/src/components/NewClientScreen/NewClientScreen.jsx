@@ -33,7 +33,7 @@ const NewClientScreen = ({ goBack }) => {
     plan_end_date: "",
     plan_status: "Ativo",
     max_weekly_entries: 0,
-	weekly_entries:"0",
+    weekly_entries: "0",
     photo: "",
     created_at: getCurrentDate(),
   });
@@ -54,7 +54,9 @@ const NewClientScreen = ({ goBack }) => {
     if (monthsToAdd > 0) {
       newEndDate = addMonthsToDate(formData.plan_start_date, monthsToAdd);
     } else if (daysToAdd > 0) {
-      const [day, month, year] = formData.plan_start_date.split("-").map(Number);
+      const [day, month, year] = formData.plan_start_date
+        .split("-")
+        .map(Number);
       const startDate = new Date(year, month - 1, day);
       startDate.setDate(startDate.getDate() + daysToAdd);
       const endDay = String(startDate.getDate()).padStart(2, "0");
@@ -79,7 +81,8 @@ const NewClientScreen = ({ goBack }) => {
   };
 
   const areFieldsValid = () => {
-    const { name, age, contact, address, email, plan_type, plan_start_date } = formData;
+    const { name, age, contact, address, email, plan_type, plan_start_date } =
+      formData;
 
     return (
       name.trim() !== "" &&
@@ -95,12 +98,12 @@ const NewClientScreen = ({ goBack }) => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-        const result = await saveClient(formData);
-        console.log("Cliente salvo com sucesso:", result);
-        goBack();
+      const result = await saveClient(formData);
+      console.log("Cliente salvo com sucesso:", result);
+      goBack();
     } catch (error) {
-        console.error("Erro ao salvar cliente:", error);
-        alert("Erro ao salvar cliente. Por favor, tente novamente.");
+      console.error("Erro ao salvar cliente:", error);
+      alert("Erro ao salvar cliente. Por favor, tente novamente.");
     }
 
     // console.log("Cliente salvo!");

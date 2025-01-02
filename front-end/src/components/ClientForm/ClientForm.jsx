@@ -1,7 +1,18 @@
 import React from "react";
+import Voltar from "../Buttons/Voltar.jsx";
 
-const ClientForm = ({ formData, handleChange, handlePlanTypeChange, handleSave, areFieldsValid, goBack }) => (
-  <form
+export default function ClientForm ({
+  formData,
+  handleChange,
+  handleSave,
+  handlePlanTypeChange,
+  areFieldsValid,
+  goBack,
+}) {
+
+  
+  return(
+    <form
     onSubmit={handleSave}
     style={{ display: "flex", flexDirection: "column", gap: "10px" }}
   >
@@ -83,11 +94,9 @@ const ClientForm = ({ formData, handleChange, handlePlanTypeChange, handleSave, 
     <button type="submit" disabled={!areFieldsValid()}>
       Salvar
     </button>
-    <button type="button" onClick={goBack}>
-      Voltar
-    </button>
+    <Voltar goBack = {goBack}/>
   </form>
-);
+  )
+}
 
-export default ClientForm;
 
