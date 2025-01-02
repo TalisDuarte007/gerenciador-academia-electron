@@ -79,7 +79,7 @@ const NewClientScreen = ({ goBack }) => {
   };
 
   const areFieldsValid = () => {
-    const { name, age, contact, address, email, plan_type, plan_frequency, plan_start_date } = formData;
+    const { name, age, contact, address, email, plan_type, plan_start_date } = formData;
 
     return (
       name.trim() !== "" &&
@@ -88,7 +88,6 @@ const NewClientScreen = ({ goBack }) => {
       address.trim() !== "" &&
       email.trim() !== "" &&
       plan_type.trim() !== "" &&
-      plan_frequency.trim() !== "" &&
       plan_start_date.trim() !== ""
     );
   };
@@ -98,14 +97,14 @@ const NewClientScreen = ({ goBack }) => {
     try {
         const result = await saveClient(formData);
         console.log("Cliente salvo com sucesso:", result);
-        //goBack();
+        goBack();
     } catch (error) {
         console.error("Erro ao salvar cliente:", error);
         alert("Erro ao salvar cliente. Por favor, tente novamente.");
     }
 
-    console.log("Cliente salvo!");
-    console.log(formData);
+    // console.log("Cliente salvo!");
+    // console.log(formData);
     // goBack();
   };
 
