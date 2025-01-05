@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ClientForm from "../ClientForm/ClientForm.jsx";
 import { saveClient } from "../../services/dbService.js";
 
-const NewClientScreen = ({ goBack }) => {
+const NewClientScreen = ({ setScreen, goBack }) => {
   const getCurrentDate = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
@@ -100,7 +100,6 @@ const NewClientScreen = ({ goBack }) => {
     try {
       const result = await saveClient(formData);
       console.log("Cliente salvo com sucesso:", result);
-      goBack();
     } catch (error) {
       console.error("Erro ao salvar cliente:", error);
       alert("Erro ao salvar cliente. Por favor, tente novamente.");
@@ -120,6 +119,7 @@ const NewClientScreen = ({ goBack }) => {
         handlePlanTypeChange={handlePlanTypeChange}
         handleSave={handleSave}
         areFieldsValid={areFieldsValid}
+        setScreen={setScreen} 
         goBack={goBack}
       />
     </div>

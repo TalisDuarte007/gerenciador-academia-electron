@@ -8,6 +8,7 @@ export default function ClientForm ({
   handlePlanTypeChange,
   areFieldsValid,
   goBack,
+  setScreen
 }) {
 
   
@@ -94,7 +95,7 @@ export default function ClientForm ({
     <button type="submit" disabled={!areFieldsValid()}>
       Salvar
     </button>
-    <Voltar goBack = {goBack}/>
+    <Voltar setScreen={setScreen} goBack={goBack} />
   </form>
   )
 }

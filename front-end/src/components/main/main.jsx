@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NewClientScreen from "../NewClientScreen/NewClientScreen.jsx";
-import ClientList from "../ClientList/ClientList.jsx";
+import ClientManager from "../ClientManager/ClientManager.jsx";
 
 export default function Main() {
   const [currentScreen, setCurrentScreen] = useState("main");
@@ -8,9 +8,18 @@ export default function Main() {
   const renderScreen = () => {
     switch (currentScreen) {
       case "newClient":
-        return <NewClientScreen goBack={() => setCurrentScreen("main")} />;
-      case "ClientList":
-        return <ClientList goBack={() => setCurrentScreen("main")} />;
+        return (
+          <NewClientScreen 
+            setScreen={setCurrentScreen} 
+            goBack="main" 
+          />
+        );
+
+      case "ClientManager":
+        return <ClientManager 
+          setScreen={setCurrentScreen} 
+          goBack="main" 
+      />;
       default:
         return (
           <div
@@ -19,7 +28,7 @@ export default function Main() {
             <button onClick={() => setCurrentScreen("newClient")}>
               New Client
             </button>
-            <button onClick={() => setCurrentScreen("ClientList")}>
+            <button onClick={() => setCurrentScreen("ClientManager")}>
               Lista de Clientes
             </button>
             <button>More Buttons</button>

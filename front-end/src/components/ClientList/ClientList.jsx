@@ -3,6 +3,7 @@ import { fetchClients } from "../../services/dbService.js";
 import Voltar from "../Buttons/Voltar.jsx";
 
 export default function ClientList(props) {
+  console.log(props);
   const [clients, setClients] = useState([]); // Estado para armazenar os clientes
   const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
   const [error, setError] = useState(null); // Estado para armazenar erros
@@ -30,8 +31,15 @@ export default function ClientList(props) {
   }, []);
 
   const abrirDetalhesCliente = (id) => {
-    console.log(`Detalhes do cliente com ID: ${id}`);
+    const cliente = clients.find((cliente) => cliente.id === id);
+    if (cliente) {
+      // Redirecionar para uma nova tela ou abrir um modal com os detalhes do cliente
+      props.exibirDetalhesCliente(cliente);
+    } else {
+      console.error("Cliente não encontrado.");
+    }
   };
+  
 
   const clientesFiltrados = clients.filter((cliente) =>
     cliente?.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -87,7 +95,7 @@ export default function ClientList(props) {
           )}
         </ul>
       </div>
-      <Voltar goBack={props.goBack} />
+      <Voltar setScreen={props.setScreen} goBack={props.goBack} />
     </>
   );
 }
